@@ -1,6 +1,6 @@
 package core
 
-import sctx "rockship-go-sdk"
+import sctx "github.com/ngothiep2412/rockship-go-sdk"
 
 func Recover() {
 	if r := recover(); r != nil {

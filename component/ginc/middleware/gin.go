@@ -3,7 +3,7 @@ package middleware
 import (
 	"flag"
 	"github.com/gin-gonic/gin"
-	sctx "rockship-go-sdk"
+	sctx "github.com/ngothiep2412/rockship-go-sdk"
 )
 
 const (

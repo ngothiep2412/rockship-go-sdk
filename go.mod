@@ -1,4 +1,4 @@
-module rockship-go-sdk
+module github.com/ngothiep2412/rockship-go-sdk
 
 go 1.24
 
