@@ -1,4 +1,4 @@
-package main
+package sctx
 
 import (
 	"flag"
@@ -49,8 +49,7 @@ type logger struct {
 }
 
 func (l *logger) WithSrc() Logger {
-	//TODO implement me
-	panic("implement me")
+	return &logger{l.debugSrc()}
 }
 
 func (l *logger) GetLevel() string { return l.Entry.Logger.Level.String() }
@@ -142,6 +141,13 @@ type appLogger struct {
 	logLevel string
 }
 
+func (al *appLogger) Activate(_ ServiceContext) error {
+	lv := mustParseLevel(al.logLevel)
+	al.logger.SetLevel(lv)
+
+	return nil
+}
+
 func NewAppLogger(config *Config) *appLogger {
 	if config == nil {
 		config = &Config{}
@@ -184,13 +190,6 @@ func (*appLogger) ID() string {
 
 func (al *appLogger) InitFlags() {
 	flag.StringVar(&al.logLevel, "log-level", al.cfg.DefaultLevel, "Log level: panic | fatal | error | warn | info | debug | trace")
-}
-
-func (al *appLogger) Activate(_ ServiceContext) error {
-	lv := mustParseLevel(al.logLevel)
-	al.logger.SetLevel(lv)
-
-	return nil
 }
 
 func (al *appLogger) Stop() error {
