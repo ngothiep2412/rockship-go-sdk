@@ -24,7 +24,14 @@ type Component interface {
 }
 
 type ServiceContext interface {
+	Load() error
+	MustGet(id string) interface{}
+	Get(id string) (interface{}, bool)
 	Logger(prefix string) Logger
+	EnvName() string
+	GetName() string
+	Stop() error
+	OutEnv()
 }
 
 type serviceContext struct {
